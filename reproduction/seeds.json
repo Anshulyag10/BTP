@@ -1,0 +1,14 @@
+{
+  "paper_original_seed": null,
+  "paper_seed_status": "not reported in the paper",
+  "replication_seed": 20260930,
+  "seed_purpose": "deterministic local reconstruction; not the authors' random realization",
+  "stream_conventions": {
+    "figure1": "seed",
+    "analytical_validation": "seed + 2",
+    "jump_sampling_diagnostics": "seed + 3",
+    "figure2": "seed + 1",
+    "figure3": "same ratio-sweep samples as figure1"
+  },
+  "diagnostic_variant_runner": "scenario seed from base seed plus case/ratio/rate/replication indices; shared across interpretation variants"
+}

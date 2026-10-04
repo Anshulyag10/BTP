@@ -1,0 +1,9 @@
+run_id,mode,started_at_utc,finished_at_utc,runtime_seconds,seed,rows,git_commit,notes
+2026-09-30T19:36:25.350248+00:00,VALIDATION,2026-09-30T19:36:25.350248+00:00,2026-09-30T19:36:38.946787+00:00,13.596539,20260930,0,unavailable,Source/config/output hashes are in reproducibility_manifest.json
+2026-09-30T19:40:53.105325+00:00,DEBUG,2026-09-30T19:40:53.105325+00:00,2026-09-30T19:44:43.381425+00:00,230.2761,20260930,2448,unavailable,Source/config/output hashes are in reproducibility_manifest.json
+2026-09-30T19:51:28.367606+00:00,VALIDATION,2026-09-30T19:51:28.367606+00:00,2026-09-30T19:51:33.520328+00:00,5.152722,20260930,0,unavailable,Source/config/output hashes are in reproducibility_manifest.json
+2026-09-30T19:54:14.503928+00:00,DEBUG,2026-09-30T19:54:14.503928+00:00,2026-09-30T19:57:08.385044+00:00,173.881116,20260930,2448,unavailable,Source/config/output hashes are in reproducibility_manifest.json
+2026-10-03T18:53:27.443879+00:00,PAPER_REPLICATION,2026-10-03T18:53:27.443879+00:00,2026-10-03T19:05:56.401542+00:00,748.957663,20260930,214200,unavailable,Source/config/output hashes are in reproducibility_manifest.json
+2026-10-03T19:14:18.390243+00:00,VALIDATION,2026-10-03T19:14:18.390243+00:00,2026-10-03T19:14:19.046480+00:00,0.656237,20260930,0,unavailable,Source/config/output hashes are in validation_manifest.json
+2026-10-04T17:06:05.886500+00:00,DEBUG,2026-10-04T17:06:05.886500+00:00,2026-10-04T17:06:19.147198+00:00,13.260698,20260930,2448,unavailable,Source/config/output hashes are in debug_manifest.json
+2026-10-04T17:03:44.488422+00:00,PAPER_REPLICATION,2026-10-04T17:03:44.488422+00:00,2026-10-04T17:11:50.088486+00:00,485.600064,20260930,214200,unavailable,Source/config/output hashes are in reproducibility_manifest.json

@@ -1,0 +1,3 @@
+pair,hypothesis,model,spot,strike,maturity,rate,kappa,long_run_mean,volatility,jump_rate,beta_positive_mean,beta_negative_mean,positive_jump_probability
+Vasicek / MRJD,H0,Vasicek,40.0,35.0,1.0,0.0,0.24,0.63,5.16,-,-,-,-
+Vasicek / MRJD,H1,MRJD,40.0,35.0,1.0,0.0,0.24,0.63,5.16,0.01; 0.08; 0.70,3.48,5.54,0.5

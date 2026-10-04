@@ -1,0 +1,188 @@
+{
+  "started_at_utc": "2026-10-03T19:14:18.390243+00:00",
+  "finished_at_utc": "2026-10-03T19:14:19.046480+00:00",
+  "runtime_seconds": 0.656237,
+  "mode": "VALIDATION",
+  "python": "3.12.0",
+  "operating_system": "Windows-11-10.0.26200-SP0",
+  "cpu": {
+    "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+    "count": 16
+  },
+  "packages": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scipy": "1.18.1",
+    "matplotlib": "3.11.2"
+  },
+  "git_commit": null,
+  "seed": 20260930,
+  "repetitions_fig1": 4,
+  "repetitions_fig23": 4,
+  "outer_repetitions_by_model_pair": {
+    "pair1_merton": {
+      "figure1": 4,
+      "figure2": 4
+    },
+    "pair2_mrjd": {
+      "figure1": 4,
+      "figure2": 4
+    }
+  },
+  "full_paper_outer_repetition_counts": false,
+  "rows": 0,
+  "simulation_settings": {
+    "seed": 20260930,
+    "alpha": 0.1,
+    "t_test_relative_tolerance": 0.002,
+    "paths_primary": 256,
+    "paths_vanilla_call_fig1": 16384,
+    "repetitions_fig1": 4,
+    "repetitions_fig23": 4,
+    "paper_repetitions_pair1": 500,
+    "paper_repetitions_pair2": 300,
+    "path_counts": [
+      64,
+      128,
+      256,
+      512,
+      1024,
+      2048,
+      4096,
+      8192,
+      16384
+    ],
+    "jump_rates": [
+      0.01,
+      0.08,
+      0.7
+    ],
+    "merton_ratio_grid": [
+      0.25,
+      0.4,
+      0.5,
+      0.63,
+      0.79,
+      1.0,
+      1.59,
+      2.0
+    ],
+    "mrjd_ratio_grid": [
+      0.2,
+      0.25,
+      0.29,
+      0.33,
+      0.4,
+      0.5,
+      0.67,
+      1.0
+    ],
+    "mrjd_ratio_definition": "Paper inconsistency: Figure 1/2 axes label E[abs(J)]/sigma, while Section 4 states lambda/(beta_plus-beta_minus). With Table 2 beta_plus=3.48 and beta_minus=5.54, the literal prose ratio is negative. The baseline follows the positive plotted grid; controlled alternative mappings are in scripts/06_debug_mrjd_parameterization.py.",
+    "mrjd_positive_jump_probability_interpretation": "Paper-specified in the numerical-study double-exponential density: pi_plus=pi_minus=0.5.",
+    "gradient_estimator": "exhaustive",
+    "fixed_ratios": {
+      "merton": 0.5,
+      "mrjd": 0.33
+    },
+    "full_paper_counts": false
+  },
+  "model_parameters": {
+    "merton": {
+      "spot": 40.0,
+      "strike": 40.0,
+      "maturity": 1.0,
+      "rate": 0.0,
+      "volatility": 0.01698,
+      "mean_log_jump": -3.3e-05,
+      "log_jump_sd": 0.03347,
+      "mean_log_jump_interpretation": "Table 1 mu_J is interpreted as the mean log jump; the article also uses mu_J for a drift quantity, so this mapping is an explicit ambiguity rather than a certain transcription."
+    },
+    "mrjd": {
+      "spot": 40.0,
+      "strike": 35.0,
+      "maturity": 1.0,
+      "rate": 0.0,
+      "mean_reversion": 0.24,
+      "long_run_mean": 0.63,
+      "volatility": 5.16,
+      "beta_positive": 3.48,
+      "beta_negative": 5.54,
+      "positive_jump_probability": 0.5,
+      "diffusion_market_price_of_risk": 0.0,
+      "diffusion_market_price_of_risk_interpretation": "Equation (8) includes a diffusion market-price adjustment lambda^M * sigma, but the numerical section gives no value; this reconstruction sets lambda^M=0."
+    }
+  },
+  "analytical_validation": [
+    {
+      "benchmark": "GBM vanilla call / Black-Scholes",
+      "analytic_value": 0.2709583417273471,
+      "monte_carlo_value": 0.27002335925405097,
+      "standard_error": 0.0012626340328215078,
+      "z_score": -0.7405015618079154,
+      "status": "PASS",
+      "details": "Exact GBM endpoint transition; discounted payoff compared with Black-Scholes.",
+      "paths": 100000
+    },
+    {
+      "benchmark": "Merton vanilla call / Poisson mixture",
+      "analytic_value": 2.5549151562588963,
+      "monte_carlo_value": 2.5527039885459577,
+      "standard_error": 0.013012974199337233,
+      "z_score": -0.1699202410661222,
+      "status": "PASS",
+      "details": "Exponential jump times and normal marks; discounted MC compared with the Merton mixture price.",
+      "paths": 100000
+    },
+    {
+      "benchmark": "Vasicek terminal mean",
+      "analytic_value": 31.599538890190207,
+      "monte_carlo_value": 31.599538890190207,
+      "standard_error": 0.014521616814902008,
+      "z_score": 0.0,
+      "status": "PASS",
+      "details": "Exact OU transition compared with the closed-form mean.",
+      "paths": 100000
+    },
+    {
+      "benchmark": "Vasicek terminal variance",
+      "analytic_value": 21.146085256513363,
+      "monte_carlo_value": 21.087735491884477,
+      "standard_error": 0.09456864102752716,
+      "z_score": -0.6170096555781284,
+      "status": "PASS",
+      "details": "Gaussian sample-variance standard error uses the exact OU variance.",
+      "paths": 100000
+    },
+    {
+      "benchmark": "MRJD terminal mean after jump compensation",
+      "analytic_value": 31.599538890190207,
+      "monte_carlo_value": 31.600676615915614,
+      "standard_error": 0.014651580670308742,
+      "z_score": 0.07765208075551958,
+      "status": "PASS",
+      "details": "Jump compensation plus the configured diffusion market-price adjustment compared with its closed-form mean.",
+      "paths": 100000
+    },
+    {
+      "benchmark": "MRJD terminal variance",
+      "analytic_value": 21.533752248558276,
+      "monte_carlo_value": 21.466881613856476,
+      "standard_error": 0.09608636487617717,
+      "z_score": -0.6959430173883032,
+      "status": "PASS",
+      "details": "Compound-OU variance includes lambda*E[J^2]; sample-based SE is approximate and does not resolve stratified/antithetic dependence.",
+      "paths": 100000
+    }
+  ],
+  "method": "Jump-time partition; exhaustive MVD sums; Student-t critical values; plug-in noncentral-t power.",
+  "replication_verified": false,
+  "limitations": [
+    "The paper does not provide the authors' random seed, executable source, or numeric curve series.",
+    "Table 1 mu_J is overloaded; code currently maps it to mean log jump.",
+    "The MRJD plotted ratio and Section 4 prose ratio conflict; plotted E[abs(J)]/sigma is the current baseline.",
+    "Equation (8) supplies no numeric lambda^M; zero is used for the baseline.",
+    "The twelve-observation payoff is a put in Example 4/panel heading but a call in the subfigure caption.",
+    "The article does not specify exact MVD randomization details or t inference corrections for antithetic/stratified dependence.",
+    "PAPER_REPLICATION specifies repetition counts; it does not establish numerical agreement with the paper."
+  ]
+}

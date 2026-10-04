@@ -1,0 +1,5 @@
+panel,case,jump_rate,ratio,paper_value,quantity,source,precision
+a,gbm_merton_vanilla_call,0.01,2.00,0.058,relative_median_price_difference,paper Figure 1 page 747,approximate_visual_read
+b,vasicek_mrjd_vanilla_put,0.70,0.67,0.80,relative_median_price_difference,paper Figure 1 page 747,approximate_visual_read
+c,vasicek_mrjd_asian_call_4,0.70,1.00,0.37,relative_median_price_difference,paper Figure 1 page 747,approximate_visual_read
+d,vasicek_mrjd_asian_put_12,0.70,0.67,5.20,relative_median_price_difference,paper Figure 1 page 747,approximate_visual_read

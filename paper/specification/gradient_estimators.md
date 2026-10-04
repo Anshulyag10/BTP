@@ -1,0 +1,10 @@
+# Gradient Estimators
+
+On conditioning on the Poisson sequence, paper Eq. (15) writes the first derivative as a sum of all `N(T)+1` products with one transition replaced by `q_i-p_i`. The printed Eq. (18) omits the factor two needed for a second derivative over unordered pairs and uses an inconsistent derivative label. Differentiating the kernel product, as also illustrated on p.746, gives twice the unordered pair sum. Applying the Taylor factor 1/2 in Eq. (19) gives GradTwo as singleton plus unordered pair cross terms. The independent mixture-polynomial test checks this coefficient.
+
+The current exhaustive `_expand_local_replacements` is an option-payoff realization of these singleton and pairwise cross differences. The optional `_randomized_mvd_estimators` chooses one interval uniformly, multiplies its first-order contribution by `m=N+1`, and uses `m/2` times its cross-difference with every other interval. Its expectation equals the exhaustive sums. The 2018 author presentation labels GOne with weight `N(t)+1` and GTwo with weight `(N(t)+1)/2` ([presentation](https://www.researchgate.net/publication/350193285_When_do_Jumps_Matter_in_Option_Prices), slides 6-7), which supports these weights.
+
+This is a stochastic reconstruction, not a proved bit-for-bit reproduction: the article does not spell out the exact random interval selection algorithm. `scripts/08_compare_mvd.py` checks all possible interval choices on identical paths at 36 experiment settings and reports conditional mean agreement and added randomization variance for both gradients. This verifies unbiasedness relative to the exhaustive construction, not estimator variance against author data.
+
+Remark 1's zero-gradient assertion on no-jump realizations conflicts with compensated P/Q kernels. A no-event realization has one interval whose drift adjustment remains; it is retained. The kernel product has degree at most `N(T)+1`; derivatives vanish above that degree, correcting the off-by-one wording in Theorem 1's proof.
+
