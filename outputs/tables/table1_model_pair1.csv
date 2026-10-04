@@ -1,0 +1,3 @@
+pair,hypothesis,model,spot,strike,maturity,rate,volatility,jump_rate,jump_parameters,parameter_note
+GBM / Merton,H0,GBM,40.0,40.0,1.0,0.0,0.01698,-,-,-
+GBM / Merton,H1,Merton,40.0,40.0,1.0,0.0,0.01698,0.01; 0.08; 0.70,mean_log_jump=-3.3e-05; log_jump_sd=0.03347,"Table 1 mu_J is interpreted as the mean log jump; the article also uses mu_J for a drift quantity, so this mapping is an explicit ambiguity rather than a certain transcription."

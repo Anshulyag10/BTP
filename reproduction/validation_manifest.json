@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "run_id": "2026-10-03T19:14:18.390243+00:00",
+  "mode": "VALIDATION",
+  "execution_date_local": "2026-10-04T00:44:19.190233+05:30",
+  "python": "3.12.0 (tags/v3.12.0:0fb18b0, Oct  2 2023, 13:03:39) [MSC v.1935 64 bit (AMD64)]",
+  "os": "Windows-11-10.0.26200-SP0",
+  "machine": "AMD64",
+  "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+  "cpu_count": 16,
+  "packages": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scipy": "1.18.1",
+    "matplotlib": "3.11.2"
+  },
+  "git_commit": null,
+  "seed": 20260930,
+  "configuration_sha256": "ece2932043f1bf12a7314dd5ac22bdc71c9cc0e6570f1681b78f5d61817c0826",
+  "paper_sha256": "76b8dab4417c20dc4e2c0235c339a5af7f1ff4b848ef693aa928460da4349571",
+  "additional_input_sha256": {
+    "pyproject.toml": "ca8e5c1f97df829fcc8792f550d577a5d3f64f6cd8d936be5f02e3428c0146b9",
+    "requirements.lock": "776261b849a17e0f25ee91c78363fcfe3ad841cf9d226f0b2e484ecb49230ad5",
+    "paper\\specification\\figure_reference.csv": "ebfbd16cfa618a0fded0363e805ef0c940f39ab606a3cd42e790a221cae064a9"
+  },
+  "source_sha256": {
+    "src\\replication\\__init__.py": "41362a5ea4931c546433d4c48290c5707bf02dbbea1c3aafa9f43d1225e47003",
+    "src\\replication\\benchmarks.py": "5b08a55a8b70f7734dea4b26894a306c9a6b4b3b9177ed32cd806d9115b625e9",
+    "src\\replication\\cli.py": "963fd985a135127c96e076a4c035ac595420582b62a8183632d5d358186a3e86",
+    "src\\replication\\config.py": "b4dbf262dc4dd00600582f332559701c45becec2a12142fda491e68be5245582",
+    "src\\replication\\estimators.py": "e61e3af539f560fb63db3903847900a16f481aad4c2ef27d650a8cde5c27e0a3",
+    "src\\replication\\experiments.py": "c90a343eba911348924aa15dff692bc6f91755e998928bdc5e3332556b1191b9",
+    "src\\replication\\models.py": "437fd1803776aaa106f9a889505abf9259924a92af2bdd43376d72c1d3cd6679",
+    "src\\replication\\payoffs.py": "1c1018f3d5536a8e7e1ece9289cc62c38e974d7ca266faf9f56a94ad703246d0",
+    "src\\replication\\pipeline.py": "de688484b9abc7cb173831279c0020376712f6d6b7e9555275cfcaadac97b60f",
+    "src\\replication\\plotting.py": "eb677dbaa36b3cc010455e27e4104963c773e0ab994eeac055fae06d2de43ebc",
+    "src\\replication\\random_streams.py": "fa539079494ca03f224d6f5564c31b1ed9fabc2ecf8a0b59b24fbded2e68659f",
+    "src\\replication\\statistics.py": "47d34a849fb96d796005167847f1b80e502d736457f0fb66bad896752cdc24d1",
+    "src\\replication\\tables.py": "c821cd43e81b60e987557cb0c856961e536f9764c4fa1f8e332104c399634a0a",
+    "src\\replication\\validation.py": "efb4d9c2b4d96ea78ae3f51942b26232591d1584153b841a6fed751ea031bda3",
+    "tests\\test_benchmarks.py": "45c0af3d3c6cbb35a9a0c2abed79a6c0f459e8f7e783ab650de073613964231b",
+    "tests\\test_paper_design.py": "dae1b1e82fbf23e51db7b8a5c919e15f29fa09c130e70b53763d568019410b17",
+    "tests\\test_replication.py": "8850f683fff1212b7d2fc1859595abbb5723b252822755d61ba29442dad6d04a",
+    "scripts\\01_validate_models.py": "a6b0da1b5f9423f08c82380f09caa2ddfb2cdd4d2ca1e711f0c7416aaf9705b0",
+    "scripts\\02_check_price_curves.py": "129bab0ca22ceec05c8fdecf3476882b21931859b54620d4fbe81586dbe9666b",
+    "scripts\\03_check_inference.py": "aa8965b9bc2b61c7cf92a4b205a88d64e1894d030b3e919e553715f18a2c5881",
+    "scripts\\06_debug_mrjd_parameterization.py": "91f2c9c598c8bd09874360ae6fbcb610271d7e4be914c4b0662bd00ccca4cc75",
+    "scripts\\12_run_full_replication.py": "6c3d2ac96e1890cafc78c67d17e7a31a0deb3c95f310f7a9609a848782f42a32",
+    "scripts\\13_compare_with_paper.py": "ffe22d861fb23b7a7bec9d2b4c795ebcf96f8f3b9173c46c0ccd3775d98cbba2",
+    "scripts\\14_refresh_manifest.py": "1cd60900de65996151082f16be199ca3a22d7464c528662ab73bfe9446c098e4"
+  },
+  "generated_output_sha256": {
+    "outputs\\diagnostics\\jump_count_strata.csv": "fb4174154c5a646c0cf0cf0c4e74a81c6f173db338306045e3ffa3cee7463fc3",
+    "outputs\\diagnostics\\mrjd_parameterization\\diagnostic_figure1.pdf": "da4661498355cc07aa37ef2d08cce666c4367ee827e08977b7959d0843340cce",
+    "outputs\\diagnostics\\mrjd_parameterization\\diagnostic_figure1.png": "6b290fde990fecfa946d85ade9c464240686f645a49361041db3bacfef9ac392",
+    "outputs\\diagnostics\\mrjd_parameterization\\raw.csv": "7ca4462c49a963665cee4afbead27a1645a90df83c6782858237d391f9dcafb3",
+    "outputs\\diagnostics\\mrjd_parameterization\\summary.csv": "cda80eb0c779db848c67027c19f7b18cf7dd56e62bf7faa1d5d6ae4051e84a81",
+    "outputs\\diagnostics\\mrjd_parameterization\\variant_register.csv": "dc33994bb77492a9b4368b27385a552d2109fe1f466f18effc1b1b806676ed5a",
+    "outputs\\tables\\analytical_validation.csv": "3dc2874fb83499ecd9da7925e30ee8c219e68edb5944eb7b7341112fcc721fdf",
+    "outputs\\tables\\paper_design_comparison.csv": "a4316160ad2871b44dc583ba9e2a85a14d799c0fb1d75e351edb06b8592989e1",
+    "outputs\\tables\\table1_model_pair1.csv": "eafc200153c949f0c78aa43c81fe5637528a5d7821d05987b6a9f34b381d2124",
+    "outputs\\tables\\table2_model_pair2.csv": "d06a0f07c6a61a92dbc3c126b84d94acf7942a02722cbb5030332ed4c4b6f918"
+  },
+  "outer_repetitions_by_model_pair": {
+    "pair1_merton": {
+      "figure1": 4,
+      "figure2": 4
+    },
+    "pair2_mrjd": {
+      "figure1": 4,
+      "figure2": 4
+    }
+  },
+  "result_rows": 0,
+  "runtime_seconds": 0.656237,
+  "limitations": [
+    "The paper does not provide the authors' random seed, executable source, or numeric curve series.",
+    "Table 1 mu_J is overloaded; code currently maps it to mean log jump.",
+    "The MRJD plotted ratio and Section 4 prose ratio conflict; plotted E[abs(J)]/sigma is the current baseline.",
+    "Equation (8) supplies no numeric lambda^M; zero is used for the baseline.",
+    "The twelve-observation payoff is a put in Example 4/panel heading but a call in the subfigure caption.",
+    "The article does not specify exact MVD randomization details or t inference corrections for antithetic/stratified dependence.",
+    "PAPER_REPLICATION specifies repetition counts; it does not establish numerical agreement with the paper."
+  ]
+}

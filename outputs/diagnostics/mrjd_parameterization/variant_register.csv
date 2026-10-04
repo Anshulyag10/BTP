@@ -1,0 +1,11 @@
+variant,interpretation,status,reason
+B_literal_signed_gap,"lambda / (beta_positive - beta_negative), with positive plotted x values",UNMAPPABLE,Table-2 beta_positive (3.48) is less than beta_negative (5.54); the literal ratio is negative and cannot produce the positive Figure 1 grid without an additional convention.
+A_plotted_ratio,Mean |J| / sigma; paper's plotted axis,RUN,Diagnostic sensitivity only; no candidate is selected by visual similarity alone.
+C_beta_as_rates,Treat Table 2 beta values as exponential rates,RUN,Diagnostic sensitivity only; no candidate is selected by visual similarity alone.
+D_pi_plus_025,Positive-jump probability 0.25 sensitivity,RUN,Diagnostic sensitivity only; no candidate is selected by visual similarity alone.
+D_pi_plus_075,Positive-jump probability 0.75 sensitivity,RUN,Diagnostic sensitivity only; no candidate is selected by visual similarity alone.
+E_lambdaM_01,Illustrative lambda^M=0.1 sensitivity,RUN,Diagnostic sensitivity only; no candidate is selected by visual similarity alone.
+E_no_jump_compensation,Omit jump compensator ablation,RUN,Diagnostic sensitivity only; no candidate is selected by visual similarity alone.
+F_lambda_over_abs_gap,Scale beta gap to lambda / |beta+ - beta-|,RUN,Diagnostic sensitivity only; no candidate is selected by visual similarity alone.
+G_12date_call,12-date Asian call caption interpretation,RUN,Diagnostic sensitivity only; no candidate is selected by visual similarity alone.
+H_12date_put,12-date Asian put Example-4 interpretation,RUN,Diagnostic sensitivity only; no candidate is selected by visual similarity alone.

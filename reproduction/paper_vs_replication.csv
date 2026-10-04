@@ -1,0 +1,15 @@
+component,paper_specification,current_replication,status,evidence_or_next_step
+GBM,Eq. (3)-(4) risk-neutral log GBM,Exact GBM endpoint transition and BS check,PAPER-SUPPORTED BUT INTERPRETED,Add multi-time transition covariance test
+Merton,Eq. (5)-(6) jump-diffusion with compensator,Jump-time paths; Table mu_J mapping ambiguous,AMBIGUOUS IN PAPER,Compare alternate mu_J semantics
+Vasicek,Eq. (7) OU,Exact OU transitions and moments,PAPER-SUPPORTED BUT INTERPRETED,Add multi-time covariance check
+MRJD,Eq. (8) plus asymmetric double exponential,Mean beta convention and 50/50 study signs; lambdaM=0 choice,AMBIGUOUS IN PAPER,Compare risk adjustment and sweep alternatives
+Jump partition,Poisson stopping times 0=tau0<...<tauN<T,Actual exponential-arrival paths,PAPER-SUPPORTED BUT INTERPRETED,Persist path-level trace and compare exact conditional law
+MVD,"Eq. (15),(18) local replacements",Exhaustive first/second-order sums; optional weighted randomization,PAPER-SUPPORTED BUT INTERPRETED,Validated mixture polynomial; authors estimator distribution remains unknown
+CRN,Shared random numbers across model estimates,Shared Brownian base and jump process,PAPER-SUPPORTED BUT INTERPRETED,Expose/record stream-level diagnostics
+Antithetic,Diffusion and jump times antithetic,Applied to Brownian and event times; marks now independent,PAPER-SUPPORTED BUT INTERPRETED,Resolve independent-unit t inference
+Stratification,Probability a jump occurs stratified,Randomized LHS event stratification,PAPER-SUPPORTED BUT INTERPRETED,Compare estimator and SE under explicit stratum weighting
+Inference,Two-sided Student-t and alternative power,Exact t critical values; nct reconstruction; iid path SE,AMBIGUOUS IN PAPER,Null calibration with stratified/antithetic pairs
+Pair-2 ratio,Figure axis E|J|/sigma vs prose lambda/(beta+ - beta-),Figure-axis baseline plus diagnostic alternatives,AMBIGUOUS IN PAPER,Review outputs/diagnostics/mrjd_parameterization
+Paper counts,500 pair1 / 300 pair2,Completed 500 Pair-1 and 300 Pair-2 repetitions for ratio and path-count sweeps,IMPLEMENTED,outputs/logs/run_metadata.json and simulation_replicates.csv
+Figures,Figures 1-3 and Appendix A,Paper-count outputs; Figure 3 uses the ratio sweep; numerical differences remain,NOT YET REPRODUCED,outputs/final_replication_report.md
+Seeds/source,Original seed/code not given,Deterministic replication seed and hashes going forward,UNREPRODUCIBLE FROM AVAILABLE INFORMATION,Compare statistical behavior only

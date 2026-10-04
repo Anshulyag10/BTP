@@ -1,0 +1,11 @@
+{
+  "supplied_source": "C:\\Users\\ASUS\\OneDrive\\Desktop\\1-s2.0-S037722172100610X-main.pdf",
+  "supplied_sha256": "027e22bfd44d4216a200c88c6c0bbcc4c39b7be0299db45f195a7bb569ca185b",
+  "project_sha256": "76b8dab4417c20dc4e2c0235c339a5af7f1ff4b848ef693aa928460da4349571",
+  "all_page_text_identical": true,
+  "figure_images_identical": {
+    "8": true,
+    "9": true,
+    "11": true
+  }
+}

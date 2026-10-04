@@ -1,0 +1,291 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=22mm]{geometry}
+\usepackage{amsmath,amssymb,booktabs,array}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue!50!black,urlcolor=blue!50!black}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\renewcommand{\arraystretch}{1.18}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\sourcefile}[1]{\texttt{\detokenize{#1}}}
+\title{Reconstruction of a Jump-Diffusion Option Pricing Study\\[4pt]
+\large Implemented Components and Verified Results}
+\author{Project Replication Report}
+\date{4 October 2026}
+
+\begin{document}
+\maketitle
+\vspace{-10mm}
+\begin{abstract}
+This report records the parts recreated from the study by
+Volk-Makarewicz, Borovkova, and Heidergott~\cite{paper}: the experimental
+design, model and payoff constructions, local gradient calculations,
+and figure definitions. It also presents independent checks of the
+implementation and one close numerical comparison with the paper.
+The scope is an implemented and checked research baseline; complete
+numerical agreement with the published graphs has not been established.
+Unmatched curves are excluded from this report.
+\end{abstract}
+
+\section{Purpose and recreated experiment design}
+The study assesses how adding jumps changes option prices and whether
+gradient estimates can detect that change. The reconstruction compares
+a diffusion model, denoted by $P$, with its jump extension, denoted by $Q$.
+Its intended use is to provide a baseline before investigating alternative
+approaches.
+
+\begin{table}[h]
+\centering\small
+\begin{tabular}{@{}p{39mm}p{38mm}p{46mm}r@{}}
+\toprule
+Baseline & Jump extension & Option & Dates\\
+\midrule
+Geometric Brownian motion & Merton & European call & 1\\
+Vasicek & Mean-reverting jump diffusion & European put & 1\\
+Vasicek & Mean-reverting jump diffusion & Arithmetic Asian call & 4\\
+Vasicek & Mean-reverting jump diffusion & Arithmetic Asian put & 12\\
+\bottomrule
+\end{tabular}
+\caption{Implemented option cases. The twelve-date case follows the
+paper's payoff formula and panel heading; its caption is inconsistent.}
+\end{table}
+
+The reconstructed experiment uses maturity $T=1$, rate $r=0$, and jump
+intensities $\lambda\in\{0.01,0.08,0.70\}$. The Merton case uses
+$S_0=K=40$; the mean-reverting cases use $S_0=40$ and $K=35$.
+There are 500 outer repetitions per Merton setting and 300 per
+mean-reverting setting. These are independent simulation runs; paths
+within a run use variance-reduction sampling.
+
+For the ratio experiments, the Merton case uses 16,384 paths per estimate
+and the mean-reverting cases use 256. The path-count experiment uses
+$64,128,\ldots,16{,}384$ paths, with fixed ratios $0.5$ and $0.33$,
+respectively. The test significance level is $\alpha=0.10$.
+
+\textbf{Presentation takeaway.} The option cases, experiment grids, path
+counts, and outer repetition counts have been recreated. Matching this
+design alone does not establish matching numerical curves.
+
+\newpage
+\section{Implemented model and payoff constructions}
+\subsection{GBM and Merton}
+The diffusion baseline is simulated with exact log-price increments.
+The implemented Merton extension has the terminal construction
+\begin{align}
+S_t^{P}&=S_0\exp\!\left[(r-\tfrac12\sigma^2)t+\sigma W_t\right],\\
+S_t^{Q}&=S_0\exp\!\left[(r-\tfrac12\sigma^2-\lambda\eta)t
+                  +\sigma W_t+\sum_{k=1}^{N_t}Y_k\right],
+\end{align}
+where $N_t$ has Poisson intensity $\lambda$,
+$Y_k\sim\mathcal N(\mu_J,s_J^2)$, and
+$\eta=\E[e^{Y_k}-1]=e^{\mu_J+s_J^2/2}-1$.
+The configured mark parameters are $\mu_J=-3.3\times10^{-5}$ and
+$s_J=0.03347$. For the positive-intensity ratio sweep,
+$\sigma=\lambda/\rho$, with
+\[
+\rho\in\{0.25,0.40,0.50,0.63,0.79,1.00,1.59,2.00\}.
+\]
+The mapping of the paper's $\mu_J$ to the mean log jump is an explicit
+interpretation because that symbol is also used for a drift quantity.
+
+\subsection{Vasicek and mean-reverting jump diffusion}
+With the configured diffusion risk adjustment set to zero, the
+implemented mean-reverting models can be written as
+\begin{align}
+dX_t^{P}&=\kappa(\theta-X_t^{P})\,dt+\sigma\,dW_t,\\
+dX_t^{Q}&=\bigl[\kappa(\theta-X_t^{Q})-\lambda\E[J]\bigr]dt
+             +\sigma\,dW_t+dL_t,
+\end{align}
+where $L_t=\sum_{k=1}^{N_t}J_k$. Exact Ornstein--Uhlenbeck transitions
+are used between observation dates. The configured values are
+$\kappa=0.24$, $\theta=0.63$, and $\sigma=5.16$.
+Positive and negative marks each have probability $1/2$, with exponential
+mean magnitudes $\beta_+$ and $\beta_-$. Thus
+\[
+\E[J]=\tfrac12(\beta_+-\beta_-),\qquad
+\E[|J|]=\tfrac12(\beta_++\beta_-).
+\]
+The baseline magnitudes are $3.48$ and $5.54$. For the plotted ratio
+$\rho=\E[|J|]/\sigma$, the revised mapping preserves the signed mean $m_J=-1.03$ over
+$\{0.20,0.25,0.29,0.33,0.40,0.50,0.67,1.00\}$.
+With $a=\rho\sigma$ and positive-jump probability $p$, it sets
+\[
+\beta_+=\frac{a+m_J}{2p},\qquad
+\beta_-=\frac{a-m_J}{2(1-p)}.
+\]
+This reconciles the figure axis with the statement that the signed mean
+stays fixed. It requires $a>|m_J|$, satisfied by every configured ratio.
+The authors' executed mapping remains unverified.
+
+\subsection{Discounted payoffs}
+At dates $t_j=jT/m$, define $A_m=m^{-1}\sum_{j=1}^m X_{t_j}$.
+European payoffs use the terminal asset value; arithmetic Asian payoffs
+use $A_m$. Calls and puts are evaluated as
+\[
+H_{\mathrm{call}}(x)=e^{-rT}(x-K)^+,
+\qquad H_{\mathrm{put}}(x)=e^{-rT}(K-x)^+.
+\]
+Merton log states are exponentiated before evaluating payoffs.
+Mean-reverting states are used directly. Discounting is applied once to
+prices and gradient contributions.
+
+\newpage
+\section{Gradient construction and implementation corrections}
+For a simulated jump-time partition, let $B$ be the baseline path state
+and let $D_i$ be the state change caused by replacing interval $i$ with
+its jump-model counterpart. Each $D_i$ includes the local drift
+adjustment and any jump contribution. Using the discounted payoff $H$,
+the implemented exhaustive constructions are
+\begin{align}
+G_1&=\sum_i\bigl[H(B+D_i)-H(B)\bigr],\\
+G_2&=G_1+\sum_{i<j}\bigl[H(B+D_i+D_j)
+             -H(B+D_i)-H(B+D_j)+H(B)\bigr].
+\end{align}
+The fully replaced payoff is $H(B+\sum_iD_i)$. GradOne uses the singleton
+sum; GradTwo adds unordered pair contributions. They represent the
+first- and second-order local expansion constructions. They are not
+assumed to equal the full price difference in every setting.
+
+The common-random-number comparison uses paired differences
+$H_Q-H_P$. Baseline and jump-model payoffs share the underlying
+randomness. Brownian increments and jump times use antithetics;
+jump occurrence is stratified. The exhaustive estimator is the current
+baseline. Enumeration over interval choices at 72 method settings verifies
+that the randomized alternative has the same conditional expectation
+(maximum discrepancy below $3\times10^{-13}$). Its added randomization
+variance is recorded separately. The authors' exact randomization remains
+unverified.
+
+\subsection{Recreated figure definitions}
+\begin{table}[h]
+\centering\small
+\begin{tabular}{@{}cp{30mm}p{39mm}p{49mm}@{}}
+\toprule
+Figure & Horizontal axis & Upper panels & Lower panels\\
+\midrule
+1 & Model ratio & Median estimated power & Relative difference of median prices\\
+2 & Paths per estimate & Empirical rejection frequency & Median estimated power\\
+3 & Same ratio grid as Figure 1 & Mean estimated power & Relative difference of mean prices\\
+\bottomrule
+\end{tabular}
+\caption{Recreated plot structure. Numerical power curves are outside
+the verified scope of this report.}
+\end{table}
+
+Figures 1 and 3 now share the ratio-sweep observations, with different
+aggregation rules. Figure 3 previously used the path-count experiment.
+Price observations are counted once per replicate, rather than being
+duplicated across the three method records.
+
+\subsection{Completed code corrections}
+\begin{itemize}
+\item Made the MRJD mapping explicit and preserved its signed mean while varying the absolute mean.
+\item Corrected Figure 3's data source and implemented the exhaustive
+singleton and pairwise gradient sums.
+\item Applied consistent discounting and retained the configured
+diffusion volatility when Merton jump intensity is zero.
+\item Vectorized jump-arrival and interval-effect calculations;
+retained exact diffusion transitions.
+\item Reduced verbose comments, formatted the source, and strengthened
+configuration and payoff checks.
+\item Preserved the legacy simulation and previous outputs, and recorded
+seeds, environment details, and file hashes for the corrected run. DEBUG outputs are isolated from
+the full experiment.
+\end{itemize}
+
+\newpage
+\section{Checks and the close numerical result}
+\subsection{Independent implementation checks}
+The recorded analytical checks use 100,000 paths per check. They compare
+the simulation with closed-form prices or moments, rather than with
+another execution of the same path construction.
+\begin{table}[h]
+\centering\small
+\begin{tabular}{@{}p{73mm}rr@{}}
+\toprule
+Quantity & Analytical & Simulation\\
+\midrule
+GBM call price (Black--Scholes) & 0.270958 & 0.270023\\
+Merton call price (Poisson mixture) & 2.554915 & 2.552704\\
+Vasicek terminal mean & 31.599539 & 31.599539\\
+Vasicek terminal variance & 21.146085 & 21.087735\\
+Compensated MRJD terminal mean & 31.599539 & 31.600677\\
+MRJD terminal variance & 21.533752 & 21.466882\\
+\bottomrule
+\end{tabular}
+\caption{All six checks passed the implementation's recorded criteria.
+These checks use their own benchmark settings, not necessarily the
+close paper endpoint below.}
+\end{table}
+
+The test suite records \textbf{35 passing tests}, including independently
+enumerated local mixture expansions, compensated transitions, payoff
+checks, and independent option-price benchmarks. Ruff checks passed.
+Characteristic-function quadrature also checks MRJD European and
+arithmetic Asian prices under the implemented assumptions. Across the
+ratio-sweep settings, maximum absolute differences between pooled
+simulation mean prices and quadrature prices were about $0.01081$ for
+$P$ and $0.01355$ for $Q$.
+
+These results support internal correctness under the chosen model
+interpretations. They do not establish agreement with all published
+curves. In particular, antithetic and stratified paths are dependent;
+the recorded path-level standard-error convention is not independently
+certified by these checks.
+
+\subsection{Close Merton price-difference endpoint}
+For Figure 1(a), at $\lambda=0.01$ and $\lambda/\sigma=2$, the relative
+difference of median price estimates is
+\[
+R_{\mathrm{med}}=
+\frac{|\operatorname{median}(\widehat V_Q)
+       -\operatorname{median}(\widehat V_P)|}
+     {|\operatorname{median}(\widehat V_P)|}.
+\]
+\begin{center}
+\begin{tabular}{@{}lr@{}}
+\toprule
+Approximate visual reading from the paper & $0.058$\\
+Recreated result & $0.057702$\\
+Absolute difference & $0.000298$\\
+\bottomrule
+\end{tabular}
+\end{center}
+The discrepancy is approximately $0.51\%$ of the visual paper reading.
+The source value is approximate, so this is evidence of close agreement
+at one endpoint, not an exact numerical reproduction of the full graph.
+
+\section{Scope for presentation use}
+The completed run contains 214,200 method records and 612 summary
+records, using the published outer repetition counts. Its recorded
+simulation runtime is approximately 8.1 minutes.
+
+The defensible presentation claims are: the experimental design and
+figure definitions were recreated; the model, payoff, and gradient
+implementation was corrected and checked; and one Merton price
+endpoint closely agrees with the supplied paper. MRJD published price
+curves and the power curves remain unverified and are omitted here.
+A separate resolution register records the paper's conflicting ratio,
+contract captions, derivative coefficients, no-jump statement, and inference
+conventions, with evidence and the selected implementation choices.
+The full study of alternative specifications contains 120 parameter
+settings and 480 independent expected-price comparisons.
+
+\small
+\begin{thebibliography}{1}
+\bibitem{paper} W. Volk-Makarewicz, S. Borovkova, and B. Heidergott.
+Assessing the impact of jumps in an option pricing model: A gradient
+estimation approach. \emph{European Journal of Operational Research},
+298:740--751, 2022.
+\href{https://doi.org/10.1016/j.ejor.2021.07.015}{doi:10.1016/j.ejor.2021.07.015}.
+\end{thebibliography}
+\textbf{Local evidence:}
+\sourcefile{config/experiments.json};
+\sourcefile{outputs/logs/run_metadata.json};
+\sourcefile{outputs/validation/figure_comparison.csv};
+\sourcefile{outputs/validation/simulation_vs_analytic_prices.csv};
+\sourcefile{reproduction/reproducibility_manifest.json}.
+\end{document}

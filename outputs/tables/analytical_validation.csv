@@ -1,0 +1,7 @@
+benchmark,analytic_value,monte_carlo_value,standard_error,z_score,status,details,paths
+GBM vanilla call / Black-Scholes,0.2709583417273471,0.27002335925405097,0.0012626340328215078,-0.7405015618079154,PASS,Exact GBM endpoint transition; discounted payoff compared with Black-Scholes.,100000
+Merton vanilla call / Poisson mixture,2.5549151562588963,2.5527039885459577,0.013012974199337233,-0.1699202410661222,PASS,Exponential jump times and normal marks; discounted MC compared with the Merton mixture price.,100000
+Vasicek terminal mean,31.599538890190207,31.599538890190207,0.014521616814902008,0.0,PASS,Exact OU transition compared with the closed-form mean.,100000
+Vasicek terminal variance,21.146085256513363,21.087735491884477,0.09456864102752716,-0.6170096555781284,PASS,Gaussian sample-variance standard error uses the exact OU variance.,100000
+MRJD terminal mean after jump compensation,31.599538890190207,31.601254962627316,0.014687290996064155,0.1168406370901668,PASS,Jump compensation plus the configured diffusion market-price adjustment compared with its closed-form mean.,100000
+MRJD terminal variance,21.64934554590048,21.571651680306722,0.09748486825490328,-0.796983849745836,PASS,Compound-OU variance includes lambda*E[J^2]; sample-based SE is approximate and does not resolve stratified/antithetic dependence.,100000

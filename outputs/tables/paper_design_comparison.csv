@@ -1,0 +1,24 @@
+metric,paper_value,implementation_value,status
+Pair 1 spot / strike / maturity / rate,"[40, 40, 1, 0]","[40.0, 40.0, 1.0, 0.0]",MATCH
+Pair 1 diffusion volatility,0.01698,0.01698,MATCH
+Pair 1 jump rates,"[0.01, 0.08, 0.7]","[0.01, 0.08, 0.7]",MATCH
+Pair 1 ratio grid lambda/sigma,"[0.25, 0.4, 0.5, 0.63, 0.79, 1.0, 1.59, 2.0]","[0.25, 0.4, 0.5, 0.63, 0.79, 1.0, 1.59, 2.0]",MATCH
+Pair 1 outer repetitions in full run,500,500,MATCH
+Randomized MVD interval weights,GradOne: N(T)+1; GradTwo pair contribution: (N(T)+1)/2,exhaustive,RECONSTRUCTION_OPTION
+Pair 2 spot / strike / maturity / rate,"[40, 35, 1, 0]","[40.0, 35.0, 1.0, 0.0]",MATCH
+Pair 2 kappa / mu / sigma,"[0.24, 0.63, 5.16]","[0.24, 0.63, 5.16]",MATCH
+Pair 2 beta positive / negative means,"[3.48, 5.54]","[3.48, 5.54]",MATCH
+Pair 2 positive jump probability,pi_plus = pi_minus = 0.5 in the numerical-study density,0.5,MATCH
+Pair 2 jump rates,"[0.01, 0.08, 0.7]","[0.01, 0.08, 0.7]",MATCH
+Pair 2 plotted ratio grid E[abs(J)]/sigma,"[0.2, 0.25, 0.29, 0.33, 0.4, 0.5, 0.67, 1.0]","[0.2, 0.25, 0.29, 0.33, 0.4, 0.5, 0.67, 1.0]",MATCH
+Pair 2 outer repetitions in full run,300,300,MATCH
+Primary path count,256,256,MATCH
+Pair 1 vanilla-call Figure 1 paths,16384,16384,MATCH
+Figure 2/3 path-count grid,"[64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384]","[64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384]",MATCH
+Test significance level,0.1,0.1,MATCH
+CRN comparator practical shift as fraction of P price,0.002,0.002,MATCH
+Merton Table 1 mu_J interpretation,ambiguous notation in paper,"Table 1 mu_J is interpreted as the mean log jump; the article also uses mu_J for a drift quantity, so this mapping is an explicit ambiguity rather than a certain transcription.",DOCUMENTED_ASSUMPTION
+MRJD ratio notation,"Figure axes use E[abs(J)]/sigma; Section 4 prose states lambda/(beta_plus-beta_minus), negative for the Table 2 ordering",positive ratio grid is interpreted as E[abs(J)]/sigma,DOCUMENTED_AMBIGUITY
+MRJD diffusion-risk term in Equation (8),lambda^M * sigma appears; no numerical lambda^M is provided,diffusion_market_price_of_risk=0.0,DOCUMENTED_ASSUMPTION
+12-observation option in numerical panel headings and Example 4,Asian Put; subfigure captions for Figures 1/2 say Asian Call,"Asian Put, following Example 4 and the panel headings",DOCUMENTED_AMBIGUITY
+Figure outcome point values,not tabulated in paper,no raw curve values supplied; see plotted replication outputs,NOT_NUMERICALLY_COMPARABLE
