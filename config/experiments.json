@@ -1,0 +1,124 @@
+{
+  "paper": {
+    "title": "Assessing the impact of jumps in an option pricing model: A gradient estimation approach",
+    "authors": [
+      "Warren Volk-Makarewicz",
+      "Svetlana Borovkova",
+      "Bernd Heidergott"
+    ],
+    "doi": "10.1016/j.ejor.2021.07.015"
+  },
+  "simulation": {
+    "seed": 20260930,
+    "alpha": 0.1,
+    "t_test_relative_tolerance": 0.002,
+    "paths_primary": 256,
+    "paths_vanilla_call_fig1": 16384,
+    "repetitions_fig1": 4,
+    "repetitions_fig23": 4,
+    "paper_repetitions_pair1": 500,
+    "paper_repetitions_pair2": 300,
+    "path_counts": [
+      64,
+      128,
+      256,
+      512,
+      1024,
+      2048,
+      4096,
+      8192,
+      16384
+    ],
+    "jump_rates": [
+      0.01,
+      0.08,
+      0.7
+    ],
+    "merton_ratio_grid": [
+      0.25,
+      0.4,
+      0.5,
+      0.63,
+      0.79,
+      1.0,
+      1.59,
+      2.0
+    ],
+    "mrjd_ratio_grid": [
+      0.2,
+      0.25,
+      0.29,
+      0.33,
+      0.4,
+      0.5,
+      0.67,
+      1.0
+    ],
+    "mrjd_ratio_definition": "Follow the plotted E[abs(J)]/sigma axis and preserve the signed mean E[J] as stated on p.747. Solve both moment constraints for beta means at fixed sign probability. The conflicting lambda/(beta_plus-beta_minus) prose is not used; alternatives are separate diagnostics.",
+    "mrjd_positive_jump_probability_interpretation": "Paper-specified in the numerical-study double-exponential density: pi_plus=pi_minus=0.5.",
+    "gradient_estimator": "exhaustive",
+    "fixed_ratios": {
+      "merton": 0.5,
+      "mrjd": 0.33
+    }
+  },
+  "models": {
+    "merton": {
+      "spot": 40.0,
+      "strike": 40.0,
+      "maturity": 1.0,
+      "rate": 0.0,
+      "volatility": 0.01698,
+      "mean_log_jump": -3.3e-05,
+      "log_jump_sd": 0.03347,
+      "mean_log_jump_interpretation": "Table 1 mu_J is interpreted as the mean log jump; the article also uses mu_J for a drift quantity, so this mapping is an explicit ambiguity rather than a certain transcription."
+    },
+    "mrjd": {
+      "ratio_interpretation": "mean_absolute_jump_over_volatility_fixed_mean",
+      "spot": 40.0,
+      "strike": 35.0,
+      "maturity": 1.0,
+      "rate": 0.0,
+      "mean_reversion": 0.24,
+      "long_run_mean": 0.63,
+      "volatility": 5.16,
+      "beta_positive": 3.48,
+      "beta_negative": 5.54,
+      "positive_jump_probability": 0.5,
+      "beta_definition": "mean_magnitude",
+      "diffusion_market_price_of_risk": 0.0,
+      "diffusion_market_price_of_risk_interpretation": "Equation (8) includes a diffusion market-price adjustment lambda^M * sigma, but the numerical section gives no value; this reconstruction sets lambda^M=0."
+    }
+  },
+  "cases": [
+    {
+      "id": "gbm_merton_vanilla_call",
+      "pair": "merton",
+      "option": "call",
+      "style": "vanilla",
+      "observations": 1
+    },
+    {
+      "id": "vasicek_mrjd_vanilla_put",
+      "pair": "mrjd",
+      "option": "put",
+      "style": "vanilla",
+      "observations": 1
+    },
+    {
+      "id": "vasicek_mrjd_asian_call_4",
+      "pair": "mrjd",
+      "option": "call",
+      "style": "asian",
+      "observations": 4
+    },
+    {
+      "id": "vasicek_mrjd_asian_put_12",
+      "pair": "mrjd",
+      "option": "put",
+      "style": "asian",
+      "observations": 12,
+      "contract_basis": "Example 4 and the in-panel headings specify a put; captions say call. The call is retained as a separate sensitivity case."
+    }
+  ]
+}

@@ -1,0 +1,3 @@
+design,paths,replications,rejection_probability,theoretical_power,mean_plugin_power,median_plugin_power
+iid_null,256,10000,0.1033,0.1000000000000001,0.2477089025963764,0.18023110397369008
+iid_alternative,256,10000,0.4806,0.4810162828903307,0.49845422734825834,0.48155185843286596
