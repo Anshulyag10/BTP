@@ -1,9 +1,0 @@
-{
-  "baseline": "axis_fixed_signed_mean",
-  "basis": "Figure axis plus the p.747 statement that signed mean and sign probability stay fixed.",
-  "signed_beta_gap": "Unmappable: positive intensity divided by negative Table-2 beta gap is negative.",
-  "author_presentation_mapping": "Unspecified: no unique executable mapping is supplied.",
-  "contract_12": "Put baseline from Example 4 and panel heading; call sensitivity retained.",
-  "price_method": "Characteristic-function quadrature: expected prices, not medians of noisy estimates.",
-  "reference_status": "No variant is selected by visual fit to the published curves."
-}
